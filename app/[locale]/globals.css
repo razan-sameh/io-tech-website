@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+@theme {
+  --color-background: #f3f3f3;
+  --color-lightContent: #a0a0a0;;
+  --color-primary: #4b2615;
+  --color-title: #4b2615;
+}
+
+.dark {
+  --color-background: #1a1410;
+  --color-lightContent: #e8e6e4cc;
+  --color-primary: #291a12;
+  --color-title: #ffffff;
+}
+
+body {
+  /* background: var(--background);
+  color: var(--foreground); */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+li {
+  cursor: pointer;
+}
+
+/* Smaller arrows */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 30p !important;
+  height: 30px !important;
+  color: var(--color-primary) !important; /* Use your theme color */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 20px; /* smaller arrow icon */
+  color: var(--color-primary); /* theme color */
+}
+
+.swiper-slide {
+  display: flex !important;
+}
