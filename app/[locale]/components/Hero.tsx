@@ -3,30 +3,17 @@ import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
-const slides = [
-  {
-    title: "Lorem Ipsum",
-    desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-    image: "/avatar.png",
-    bgImage: "/hero1.png",
-  },
-  {
-    title: "Innovate with Us",
-    desc: "We deliver quality and precision to help your business grow.",
-    image: "/avatar.png",
-    bgImage: "/hero1.png",
-  },
-  {
-    title: "Empowering Ideas",
-    desc: "We help turn your vision into reality with technology and creativity.",
-    image: "/avatar.png",
-    bgImage: "/hero1.png",
-  },
-];
+import { useHero } from "@/lib/hooks/useHero";
+import { typHeroSlide } from "@/content/type";
 
 export default function Hero() {
+  const { data: hero, isLoading, error } = useHero();
+  const slides: typHeroSlide[] = hero?.hero_slides || [];
   const [index, setIndex] = useState(0);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error</div>;
 
   const nextSlide = () => {
     setIndex((prev) => (prev + 1) % slides.length);
@@ -39,12 +26,16 @@ export default function Hero() {
   return (
     <section className="relative h-[80vh] flex items-center justify-center text-white overflow-hidden">
       {/* Background Image */}
-      <Image
-        src={slides[index].bgImage}
-        alt={slides[index].title}
-        fill
-        className="object-cover brightness-50"
-      />
+      {slides[index].BackgroundImage && (
+        <Image
+          src={slides[index].BackgroundImage}
+          alt={slides[index].title}
+          fill
+          className="object-cover brightness-50"
+          unoptimized
+          preload
+        />
+      )}
 
       {/* Content */}
       <motion.div
@@ -52,12 +43,12 @@ export default function Hero() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-6xl px-8 md:px-16 text-center md:text-left gap-10"
+        className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-6xl px-8 md:px-16 text-center md:text-start gap-10"
       >
         {/* Text Section */}
         <div className="flex-1">
           <h1 className="text-5xl font-bold mb-4">{slides[index].title}</h1>
-          <p className="mb-6 text-lg">{slides[index].desc}</p>
+          <p className="mb-6 text-lg">{slides[index].description}</p>
           <button className="bg-white text-[#3b2416] px-6 py-3 rounded hover:bg-gray-200 transition">
             Read More
           </button>
@@ -65,13 +56,17 @@ export default function Hero() {
 
         {/* Image Section (Right side) */}
         <div className="flex justify-center md:justify-end flex-1">
-          <Image
-            src={slides[index].image}
-            alt="Decorative Icon"
-            width={220}
-            height={220}
-            className="shadow-lg"
-          />
+          {slides[index].media && (
+            <Image
+              src={slides[index].media}
+              alt="Decorative Icon"
+              width={220}
+              height={220}
+              className="shadow-lg"
+              unoptimized
+              preload
+            />
+          )}
         </div>
       </motion.div>
 
