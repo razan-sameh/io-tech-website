@@ -26,15 +26,6 @@ const MobileMenu: FC<MobileMenuProps> = ({ showSearch, setMenuOpen }) => {
         Contact Us
       </Link>
 
-      {/* Mobile Search */}
-      {showSearch && (
-        <input
-          type="text"
-          placeholder="Search..."
-          className="px-2 py-1 rounded text-black outline-none w-3/4"
-        />
-      )}
-
       {/* Mobile Book Appointment Button */}
       <button className="bg-white text-[#3b2416] px-3 py-1 rounded hover:bg-gray-200 transition">
         Book Appointment

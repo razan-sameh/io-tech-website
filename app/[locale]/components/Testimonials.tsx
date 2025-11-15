@@ -7,27 +7,6 @@ import Container from "@/components/Container";
 import { useLocale } from "next-intl";
 import { useClient } from "@/lib/hooks/useClient";
 
-// const testimonials = [
-//   {
-//     name: "Mohammed Saif",
-//     role: "CEO, Company",
-//     text: "With the help of the hospitable staff of Al Safar and Partners I was able to get my work done without any hassle. The help I received helped me a great deal to overcome the issues that I faced. I was always updated about my case and my queries never went unanswered.",
-//     image: "/avatar.png",
-//   },
-//   {
-//     name: "Sara Ahmed",
-//     role: "Marketing Director, XYZ",
-//     text: "Working with this team was an excellent experience. They truly care about delivering quality and innovation.",
-//     image: "/avatar.png",
-//   },
-//   {
-//     name: "John Doe",
-//     role: "Investor",
-//     text: "Professional, dedicated, and always ahead of schedule. Highly recommended for business growth projects.",
-//     image: "/avatar.png",
-//   },
-// ];
-
 export default function Testimonials() {
   const [index, setIndex] = useState(0);
   const locale = useLocale();

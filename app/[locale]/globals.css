@@ -5,23 +5,10 @@
   --foreground: #171717;
 }
 
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
 @theme {
   --color-background: #f3f3f3;
-  --color-lightContent: #a0a0a0;;
+  --color-lightContent: #a0a0a0;
+  --color-content: #171717;
   --color-primary: #4b2615;
   --color-title: #4b2615;
 }
@@ -30,6 +17,8 @@
   --color-background: #1a1410;
   --color-lightContent: #e8e6e4cc;
   --color-primary: #291a12;
+  --color-content: #ffffff;
+
   --color-title: #ffffff;
 }
 
@@ -42,9 +31,8 @@ body {
 button {
   cursor: pointer;
 }
-
-li {
-  cursor: pointer;
+ul {
+  list-style: square;
 }
 
 /* Smaller arrows */

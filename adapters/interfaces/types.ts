@@ -57,3 +57,19 @@ export interface StrapiClient {
   comment: string;
   photo?: StrapiImage;
 }
+
+export interface StrapiSection {
+  id: number;
+  title: string;
+  content: string[];
+}
+
+export interface StrapiService {
+  id: number;
+  documentId: string;
+  slug: string;
+  title: string;
+  description: string;
+  image?: StrapiImage;
+  sections?: StrapiSection[];
+}

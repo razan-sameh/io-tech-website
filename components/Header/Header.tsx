@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import {FaBars, FaTimes } from "react-icons/fa";
 import ThemeButton from "./components/ThemeButton";
 import LanguageDropdown from "./components/LanguageDropdown";
 import ServiceDropdown from "./components/ServiceDropdown";
 import MobileMenu from "./components/MobileMenu";
+import SearchInput from "./components/SearchInput";
 
 export default function Header() {
   const [showSearch, setShowSearch] = useState(false);
@@ -15,25 +16,31 @@ export default function Header() {
   return (
     <header className="absolute top-0 left-0 w-full z-50 text-white px-6 py-4 flex justify-between items-center bg-transparent">
       {/* Logo */}
-      <div className="text-xl font-bold">LOGO</div>
+      <Link href="/" className="text-xl font-bold">
+        LOGO
+      </Link>
 
       {/* Desktop Navigation (lg and up) */}
       <nav className="hidden lg:flex gap-6 items-center">
-        <Link href="/" className="hover:text-gray-300 transition">Home</Link>
-        <Link href="/about" className="hover:text-gray-300 transition">About Us</Link>
+        <Link href="/" className="hover:text-gray-300 transition">
+          Home
+        </Link>
+        <Link href="/about" className="hover:text-gray-300 transition">
+          About Us
+        </Link>
         <ServiceDropdown />
-        <Link href="/team" className="hover:text-gray-300 transition">Our Team</Link>
-        <Link href="/contact" className="hover:text-gray-300 transition">Contact Us</Link>
+        <Link href="/team" className="hover:text-gray-300 transition">
+          Our Team
+        </Link>
+        <Link href="/contact" className="hover:text-gray-300 transition">
+          Contact Us
+        </Link>
       </nav>
 
       {/* Right Side */}
       <div className="flex items-center gap-4">
         {/* Search Input (desktop only) */}
-        {showSearch && <input type="text" placeholder="Search..." className="px-2 py-1 rounded text-black outline-none transition hidden md:block" />}
-
-        {/* Search Icon */}
-        <FaSearch className="cursor-pointer hover:text-gray-300" onClick={() => setShowSearch(!showSearch)} />
-
+        <SearchInput setShow={setShowSearch} show={showSearch}/>
         {/* Theme Toggle */}
         <ThemeButton />
 
@@ -46,13 +53,19 @@ export default function Header() {
         </button>
 
         {/* Mobile Menu Icon (md down) */}
-        <button className="block lg:hidden text-xl" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+        <button
+          className="block lg:hidden text-xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
       {/* Mobile Menu Component */}
-      {menuOpen && <MobileMenu showSearch={showSearch} setMenuOpen={setMenuOpen} />}
+      {menuOpen && (
+        <MobileMenu showSearch={showSearch} setMenuOpen={setMenuOpen} />
+      )}
     </header>
   );
 }

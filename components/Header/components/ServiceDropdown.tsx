@@ -1,11 +1,14 @@
 "use client";
 
+import { useService } from "@/lib/hooks/useService";
+import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
 export default function ServiceDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { data: services = [], isLoading, error } = useService();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -18,26 +21,9 @@ export default function ServiceDropdown() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const services = [
-    "Legal Consultation Services",
-    "Foreign Investment Services",
-    "Contracts",
-    "Notarization",
-    "Insurance",
-    "and Defense in All Cases",
-    "Banks and Financial Institutions",
-    "Corporate Governance Services",
-    "Companies Liquidation",
-    "Internal Regulations for Companies",
-    "Services for Companies and Institutions",
-    "Arbitration",
-    "Intellectual Property",
-    "Corporate Restructuring and Reorganization",
-    "Establishing National and Foreign Companies",
-    "Commercial Agencies",
-    "Supporting Vision 2030",
-    "Estates",
-  ];
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return <div>Error</div>;
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -59,13 +45,14 @@ export default function ServiceDropdown() {
           {/* Responsive Grid Layout */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 relative z-10 max-h-[70vh] overflow-y-auto">
             {services.map((service, idx) => (
-              <a
+              <Link
                 key={idx}
-                href="#"
+                href={`/services/${service.documentId}`}
                 className="block text-xs md:text-sm hover:text-gray-300 transition py-1"
+                onClick={()=>setIsOpen(false)}
               >
-                {service}
-              </a>
+                {service.title}
+              </Link>
             ))}
           </div>
         </div>
