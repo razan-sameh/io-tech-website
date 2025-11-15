@@ -1,5 +1,58 @@
 {
-  "Header": {
-    "home": "Home"
+  "hero": {
+    "readMore": "Read More"
+  },
+  "team": {
+    "title": "Our Team",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+  },
+  "testimonials": {
+    "title": "What our clients are saying",
+    "description": "Our clients range from individual investors, to local, international as well as Fortune 500 companies."
+  },
+  "header": {
+    "logo": "LOGO",
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "team": "Our Team",
+    "contact": "Contact Us",
+    "book": "Book Appointment",
+    "searchPlaceholder": "Search services...",
+    "toggleMenu": "Toggle menu"
+  },
+  "footer": {
+    "contacts": "Contacts",
+    "emailPlaceholder": "Email",
+    "subscribe": "Subscribe",
+    "submitting": "Submitting...",
+    "subscribedSuccess": "Subscribed successfully!",
+    "subscribeError": "Something went wrong. Please try again.",
+    "invalidEmail": "Please enter a valid email address",
+    "copyright": "© 2024 . All rights reserved.",
+    "nav": {
+      "about": "About",
+      "strategy": "Our Strategy",
+      "advantages": "Our Advantages",
+      "socialResponsibility": "Social Responsibility",
+      "services": "Our Services"
+    }
+  },
+  "error": {
+    "title": "Oops! Something went wrong.",
+    "message": "An unexpected error occurred while loading this page.",
+    "retryButton": "Retry"
+  },
+  "servicesSearch": {
+    "heroAlt": "Hero image",
+    "back": "Back",
+    "loading": "Loading services...",
+    "error": "Error loading services",
+    "noServices": "No services found",
+    "readMore": "Read More"
+  },
+  "serviceDetails": {
+    "back": "Back",
+    "notFound": "Service not found."
   }
 }

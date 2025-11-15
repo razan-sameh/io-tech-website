@@ -1,13 +1,17 @@
-// components/footer/FooterNav.tsx
-import Link from 'next/link';
+"use client";
+
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function FooterNav() {
+  const t = useTranslations("footer");
+
   const links = [
-    { href: '/about', label: 'About' },
-    { href: '/strategy', label: 'Our Strategy' },
-    { href: '/advantages', label: 'Our Advantages' },
-    { href: '/social-responsibility', label: 'Social Responsibility' },
-    { href: '/services', label: 'Our Services' },
+    { href: '/about', label: t("nav.about") },
+    { href: '/strategy', label: t("nav.strategy") },
+    { href: '/advantages', label: t("nav.advantages") },
+    { href: '/social-responsibility', label: t("nav.socialResponsibility") },
+    { href: '/services', label: t("nav.services") },
   ];
 
   return (

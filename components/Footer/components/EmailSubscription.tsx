@@ -5,12 +5,14 @@ import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import { FaExclamationCircle } from "react-icons/fa";
 import { useCreateSubscriber } from "@/lib/hooks/useSubscriber";
+import { useTranslations } from "next-intl";
 
 const emailSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: z.string().email("invalidEmail"),
 });
 
 export default function EmailSubscription() {
+  const t = useTranslations("footer");
   const mutation = useCreateSubscriber();
 
   const formik = useFormik({
@@ -20,12 +22,10 @@ export default function EmailSubscription() {
       mutation.mutate(values, {
         onSuccess: () => {
           resetForm();
-          alert("Subscribed successfully!");
+          alert(t("subscribedSuccess"));
         },
-        onError: (error) => {
-            console.log({error});
-            
-          alert("Something went wrong. Please try again.");
+        onError: () => {            
+          alert(t("subscribeError"));
         },
       });
     },
@@ -40,7 +40,7 @@ export default function EmailSubscription() {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder={t("emailPlaceholder")}
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -59,13 +59,13 @@ export default function EmailSubscription() {
           disabled={mutation.isPending}
           className="bg-primary text-white m-2 px-4 md:px-6 py-2 rounded-md text-sm hover:bg-[#2D1807] transition-colors whitespace-nowrap disabled:opacity-50"
         >
-          {mutation.isPending ? "Submitting..." : "Subscribe"}
+          {mutation.isPending ? t("submitting") : t("subscribe")}
         </button>
       </div>
       {hasError && (
         <p className="mt-1 text-sm text-red-500 flex items-center gap-1 animate-fadeIn">
           <FaExclamationCircle size={14} />
-          {formik.errors.email}
+          {formik.errors.email && t(formik.errors.email)}
         </p>
       )}
     </form>

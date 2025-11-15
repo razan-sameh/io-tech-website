@@ -7,7 +7,5 @@ export default async function ProductPage({
 }) {
   const { id } = await params;
 
-  return (
-        <ServiceDetails serviceId={id} />
-  );
+  return <ServiceDetails serviceId={id} />;
 }

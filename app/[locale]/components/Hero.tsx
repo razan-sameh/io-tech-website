@@ -5,15 +5,27 @@ import { motion } from "framer-motion";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useHero } from "@/lib/hooks/useHero";
 import { typHeroSlide } from "@/content/type";
+import { useTranslations } from "next-intl";
 
 export default function Hero() {
-  const { data: hero, isLoading, error } = useHero();
+  const { data: hero, isLoading } = useHero();
   const slides: typHeroSlide[] = hero?.hero_slides || [];
   const [index, setIndex] = useState(0);
+  const t = useTranslations("hero");
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Error</div>;
+  if (isLoading)
+    return (
+      <div className="relative h-[80vh] flex flex-col md:flex-row items-center justify-between max-w-6xl mx-auto px-8 md:px-16 gap-10 animate-pulse">
+        <div className="flex-1 space-y-4">
+          <div className="h-12 bg-gray-300 rounded w-3/4"></div>
+          <div className="h-6 bg-gray-300 rounded w-full"></div>
+          <div className="h-10 bg-gray-300 rounded w-1/3"></div>
+        </div>
+        <div className="flex-1 flex justify-center md:justify-end">
+          <div className="w-56 h-56 bg-gray-300 rounded shadow-lg"></div>
+        </div>
+      </div>
+    );
 
   const nextSlide = () => {
     setIndex((prev) => (prev + 1) % slides.length);
@@ -50,7 +62,7 @@ export default function Hero() {
           <h1 className="text-5xl font-bold mb-4">{slides[index].title}</h1>
           <p className="mb-6 text-lg">{slides[index].description}</p>
           <button className="bg-white text-[#3b2416] px-6 py-3 rounded hover:bg-gray-200 transition">
-            Read More
+            {t("readMore")}
           </button>
         </div>
 
@@ -58,7 +70,7 @@ export default function Hero() {
         <div className="flex justify-center md:justify-end flex-1">
           {slides[index].media && (
             <Image
-              src={slides[index].media}
+              src={slides[index].media || "/avatar.png"}
               alt="Decorative Icon"
               width={220}
               height={220}

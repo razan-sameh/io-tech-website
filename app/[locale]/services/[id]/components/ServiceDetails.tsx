@@ -2,7 +2,7 @@
 import Container from "@/components/Container";
 import { useRouter } from "@/i18n/navigation";
 import { useServiceById } from "@/lib/hooks/useService";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa";
 
@@ -11,20 +11,51 @@ interface ServicePageProps {
 }
 
 export default function ServiceDetails({ serviceId }: ServicePageProps) {
-  const { data: service, isLoading, error } = useServiceById(serviceId);
+  const t = useTranslations("serviceDetails");
+  const { data: service, isLoading } = useServiceById(serviceId);
   const router = useRouter();
   const locale = useLocale();
   const isRTL = locale === "ar";
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen">
+        {/* Hero Skeleton */}
+        <div className="relative h-[80vh] w-full bg-primary/70 animate-pulse" />
 
-  if (error) return <div>Error</div>;
+        <Container>
+          <div className="max-w-5xl mx-auto px-4 py-10 space-y-6">
+            {/* Back button skeleton */}
+            <div className="w-20 h-6 bg-gray-300 rounded" />
+
+            {/* Title skeleton */}
+            <div className="w-3/4 h-10 bg-gray-300 rounded" />
+
+            {/* Sections skeleton */}
+            <div className="space-y-8">
+              {[1, 2, 3].map((_, idx) => (
+                <div key={idx} className="space-y-3">
+                  <div className="w-1/3 h-6 bg-gray-300 rounded" />
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-300 rounded w-full" />
+                    <div className="h-4 bg-gray-300 rounded w-5/6" />
+                    <div className="h-4 bg-gray-300 rounded w-4/6" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
 
   if (!service) {
     return (
-      <div className="py-20 text-center text-gray-600">Service not found.</div>
+      <div className="py-20 text-center text-gray-600">{t("notFound")}</div>
     );
   }
+
   const handleBack = () => router.back();
 
   return (
@@ -32,7 +63,7 @@ export default function ServiceDetails({ serviceId }: ServicePageProps) {
       {/* HERO IMAGE */}
       <div className="relative h-[80vh] w-full">
         <Image
-          src={service.image} // Replace with your image
+          src={service.image || "/hero.png"}
           alt={service.title}
           fill
           className="object-cover brightness-50"
@@ -53,7 +84,7 @@ export default function ServiceDetails({ serviceId }: ServicePageProps) {
             <FaChevronLeft
               className={`text-title ${isRTL ? "rotate-180" : ""}`}
             />
-            <span className="text-title">Back</span>
+            <span className="text-title">{t("back")}</span>
           </button>
 
           <h1 className="text-3xl font-semibold mb-6 text-title">
@@ -69,7 +100,6 @@ export default function ServiceDetails({ serviceId }: ServicePageProps) {
                   {section.title}
                 </h2>
 
-                {/* Render Rich Text HTML */}
                 <div
                   className="prose max-w-none text-content"
                   dangerouslySetInnerHTML={{ __html: section.content }}

@@ -7,6 +7,7 @@ const teamAdapter = TeamAdapter.getInstance(STRAPI_URL);
 export async function fetchTeam(locale: string) {
   const queryParams: Record<string, any> = {
     "populate[photo]": true,
+    "populate[contactLinks]": true,
   };
   const data = await apiClient<any>("/team-members", {}, queryParams, locale);
 

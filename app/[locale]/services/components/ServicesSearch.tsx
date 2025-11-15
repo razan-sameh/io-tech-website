@@ -2,16 +2,15 @@
 import Container from "@/components/Container";
 import { Link, useRouter } from "@/i18n/navigation";
 import { useService } from "@/lib/hooks/useService";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { FaChevronLeft } from "react-icons/fa";
 import Image from "next/image";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
 
 function ServicesSearch() {
+  const t = useTranslations("servicesSearch");
   const query = useSelector((state: RootState) => state.search.query);
-  console.log({ query });
-
   const { data: services = [], isLoading, error } = useService(query);
   const locale = useLocale();
   const router = useRouter();
@@ -24,8 +23,8 @@ function ServicesSearch() {
       {/* HERO IMAGE */}
       <div className="relative h-[80vh] w-full">
         <Image
-          src="/hero.png" // Replace with your image
-          alt="hero"
+          src="/hero.png"
+          alt={t("heroAlt")}
           fill
           className="object-cover brightness-50"
           unoptimized
@@ -44,17 +43,17 @@ function ServicesSearch() {
             <FaChevronLeft
               className={`text-title ${isRTL ? "rotate-180" : ""}`}
             />
-            <span className="text-title">Back</span>
+            <span className="text-title">{t("back")}</span>
           </button>
 
           {/* Services Content */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             {isLoading ? (
-              <p className="p-4">Loading services...</p>
+              <p className="p-4">{t("loading")}</p>
             ) : error ? (
-              <p className="p-4 text-red-500">Error loading services</p>
+              <p className="p-4 text-red-500">{t("error")}</p>
             ) : services.length === 0 ? (
-              <p className="p-4">No services found</p>
+              <p className="p-4">{t("noServices")}</p>
             ) : (
               services.map((service) => (
                 <div
@@ -65,7 +64,12 @@ function ServicesSearch() {
                     {service.title}
                   </h2>
                   <p className="text-gray-700 my-2">{service.description}</p>
-                  <Link href={`/services/${service.documentId}`} className="text-primary underline underline-offset-2">Read More</Link>
+                  <Link
+                    href={`/services/${service.documentId}`}
+                    className="text-primary underline underline-offset-2"
+                  >
+                    {t("readMore")}
+                  </Link>
                 </div>
               ))
             )}

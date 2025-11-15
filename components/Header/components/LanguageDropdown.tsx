@@ -9,6 +9,7 @@ export default function LanguageDropdown() {
     useLanguage();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const isRTL = locale === "ar";
 
   // close dropdown on outside click
   useEffect(() => {
@@ -28,16 +29,16 @@ export default function LanguageDropdown() {
     <div ref={dropdownRef} className="relative">
       <IconButton onClick={() => setShowDropdown(!showDropdown)}>
         <div className="flex items-center gap-1">
-          <span className="text-sm font-medium">
-            {currentLanguage.displayCode}
-          </span>
-          <FaChevronDown size={10}/>
+          <span className="text-sm font-medium">{currentLanguage.displayCode}</span>
+          <FaChevronDown size={10} />
         </div>
       </IconButton>
 
       {showDropdown && (
         <div
-          className="absolute top-full right-0 mt-2 shadow-lg z-50 min-w-[120px]"
+          className={`absolute top-full mt-2 shadow-lg z-50 min-w-[120px] ${
+            isRTL ? "left-0" : "right-0"
+          }`}
           style={{ backgroundColor: "var(--color-background)" }}
         >
           {languageOptions.map((option) => {

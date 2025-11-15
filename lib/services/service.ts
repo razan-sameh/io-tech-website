@@ -14,8 +14,8 @@ export async function fetchService(
   const queryParams: Record<string, any> = {
     "populate[image]": true,
     "populate[sections]": true,
-    // "pagination[page]": page,
-    // "pagination[pageSize]": pageSize,
+    "pagination[page]": page,
+    "pagination[pageSize]": pageSize,
   };
   // If page & pageSize provided, use them
   if (page !== undefined && pageSize !== undefined) {
@@ -40,7 +40,6 @@ export async function fetchService(
   }
 
   const data = await apiClient<any>("/services", {}, queryParams, locale);
-console.log({data});
 
   return serviceAdapter.adaptMany(data.data);
 }
