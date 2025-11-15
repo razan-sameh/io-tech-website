@@ -1,17 +1,12 @@
-// apiClient.ts
-export const API_URL =
-  process.env.STRAPI_API_URL || "http://localhost:1337/api";
-export const STRAPI_URL =
-  process.env.STRAPI_API_URL?.replace("/api", "") ||
-  "http://localhost:1337";
-// In apiClient.ts - let React Query handle ALL caching
+export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api";
+
 export async function apiClient<T>(
   endpoint: string,
   options: RequestInit = {},
   params?: Record<string, string | number | boolean>,
   locale?: string
 ): Promise<T> {
-  const url = new URL(`${API_URL}${endpoint}`);
+  const url = new URL(`${STRAPI_URL}${endpoint}`);
 
   const queryParams = locale ? { ...params, locale } : params || {};
 
