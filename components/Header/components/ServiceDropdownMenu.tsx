@@ -7,13 +7,11 @@ interface Props {
 }
 
 export default function ServiceDropdownMenu({ onClose }: Props) {
-  const { data: services = [], isLoading, error } = useService();
-
+  const { data: servicesWithMeta, isLoading, error } = useService();
+  const services = servicesWithMeta?.data || [];
   if (isLoading) {
     return (
-      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-primary text-white rounded-lg shadow-2xl p-6 z-50 w-[90vw] md:w-[85vw] lg:w-screen max-w-[1200px] flex flex-col items-center justify-center gap-4">
-        {/* Arrow */}
-        <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rotate-45"></div>
+    <div className="absolute top-full left-1/2 -translate-x-1/2 bg-primary text-white rounded-lg shadow-2xl p-4 md:p-6 z-50 w-[60vw] md:w-[85vw]">
 
         {/* Loading Text */}
         <p className="text-white text-sm md:text-base">Loading services</p>
@@ -30,18 +28,15 @@ export default function ServiceDropdownMenu({ onClose }: Props) {
 
   if (error) {
     return (
-      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-primary text-white rounded-lg shadow-2xl p-4 md:p-6 z-50 w-[90vw] md:w-[85vw] lg:w-screen max-w-[1200px]">
+    <div className="absolute top-full left-1/2 -translate-x-1/2 bg-primary text-white rounded-lg shadow-2xl p-4 md:p-6 z-50 w-[60vw] md:w-[85vw]">
         Failed to load services.
       </div>
     );
   }
 
   return (
-    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-4 bg-primary text-white rounded-lg shadow-2xl p-4 md:p-6 z-50 w-[90vw] md:w-[85vw] lg:w-screen max-w-[1200px]">
-      {/* Arrow pointing up */}
-      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-primary rotate-45"></div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6 relative z-10 max-h-[70vh] overflow-y-auto">
+    <div className="absolute top-full left-1/2 -translate-x-1/2 bg-primary text-white rounded-lg shadow-2xl p-4 md:p-6 z-50 w-[60vw] md:w-[85vw]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-4 lg:gap-6 relative z-10 max-h-[70vh] overflow-y-auto">
         {services.map((service, idx) => (
           <Link
             key={idx}

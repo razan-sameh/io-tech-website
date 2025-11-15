@@ -17,7 +17,7 @@ export default function SearchInput() {
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
-    if (searchTerm.trim() === "") return;
+    // if (searchTerm.trim() === "") return;
     
     // Save search term in Redux
     dispatch(setSearchQuery(searchTerm.trim()));

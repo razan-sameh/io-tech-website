@@ -8,5 +8,12 @@ export function useClient() {
   return useQuery({
     queryKey: ["client", locale],
     queryFn: () => fetchClient(locale),
+    // ⭐ Cache forever (best for static Strapi content)
+    staleTime: Infinity,
+    gcTime: Infinity,
+    // 🔒 Do NOT refetch
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 }

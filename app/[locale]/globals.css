@@ -31,9 +31,9 @@ body {
 button {
   cursor: pointer;
 }
-ul {
+/* ul {
   list-style: square;
-}
+} */
 
 /* Smaller arrows */
 .swiper-button-next,

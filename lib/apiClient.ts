@@ -23,7 +23,7 @@ export async function apiClient<T>(
 
   const res = await fetch(url.toString(), {
     cache: "default",
-    credentials: "include", // ✅ مهم جدًا
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...(options.headers || {}),

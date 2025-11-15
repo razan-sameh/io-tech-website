@@ -1,29 +1,22 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import ServiceDropdownMenu from "./ServiceDropdownMenu";
 import { useTranslations } from "next-intl";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/store";
+import { toggleServiceMenu, setServiceMenu } from "@/store/menuSlice";
 
 export default function ServiceDropdownButton() {
-  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("header");
-
-  // Close dropdown on outside click
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const dispatch = useDispatch<AppDispatch>();
+  const isOpen = useSelector((state: RootState) => state.menu.serviceMenuOpen);
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div ref={dropdownRef} className="relative lg:static">
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => dispatch(toggleServiceMenu())}
         className="flex items-center gap-2 hover:text-gray-300 transition"
       >
         {t("services")}
@@ -33,7 +26,7 @@ export default function ServiceDropdownButton() {
       </button>
 
       {/* Dropdown menu */}
-      {isOpen && <ServiceDropdownMenu onClose={() => setIsOpen(false)} />}
+      {isOpen && <ServiceDropdownMenu onClose={() => dispatch(setServiceMenu(false))} />}
     </div>
   );
 }

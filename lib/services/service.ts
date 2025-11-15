@@ -7,7 +7,6 @@ const serviceAdapter = ServiceAdapter.getInstance(STRAPI_URL);
 export async function fetchService(
   locale: string,
   search?: string,
-  limit?: number,
   page?: number,
   pageSize?: number
 ) {
@@ -21,11 +20,8 @@ export async function fetchService(
   if (page !== undefined && pageSize !== undefined) {
     queryParams["pagination[page]"] = page;
     queryParams["pagination[pageSize]"] = pageSize;
-  } 
+  }
 
-  // if (limit) {
-  //   queryParams["pagination[limit]"] = limit;
-  // }
   if (search && search.trim() !== "") {
     const q = search.trim();
 
@@ -35,13 +31,13 @@ export async function fetchService(
     queryParams["filters[$or][3][sections][content][$containsi]"] = q;
   }
 
-  if (limit) {
-    queryParams["pagination[limit]"] = limit;
-  }
-
   const data = await apiClient<any>("/services", {}, queryParams, locale);
 
-  return serviceAdapter.adaptMany(data.data);
+  // return serviceAdapter.adaptMany(data.data);
+  return {
+    data: serviceAdapter.adaptMany(data.data),
+    meta: data.meta.pagination,
+  };
 }
 
 export const fetchServiceById = async (locale: string, serviceId: string) => {

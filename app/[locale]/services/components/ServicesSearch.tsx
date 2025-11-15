@@ -7,14 +7,23 @@ import { FaChevronLeft } from "react-icons/fa";
 import Image from "next/image";
 import { RootState } from "@/store";
 import { useSelector } from "react-redux";
+import Pagination from "./Pagination";
+import { useState } from "react";
 
 function ServicesSearch() {
   const t = useTranslations("servicesSearch");
+  const [paginate, setPaginate] = useState(1);
+  const pageSize = 10;
   const query = useSelector((state: RootState) => state.search.query);
-  const { data: services = [], isLoading, error } = useService(query);
+  const {
+    data: servicesWithMeta,
+    isLoading,
+    error,
+  } = useService(query, paginate, pageSize);
+  const services = servicesWithMeta?.data || [];
+  const meta = servicesWithMeta?.meta;
   const locale = useLocale();
   const router = useRouter();
-
   const isRTL = locale === "ar";
   const handleBack = () => router.back();
 
@@ -74,6 +83,16 @@ function ServicesSearch() {
               ))
             )}
           </div>
+        </div>
+        <div className="mt-auto">
+          {meta?.total > pageSize && (
+            <Pagination
+              setPaginate={setPaginate}
+              currentPage={paginate}
+              pageSize={pageSize}
+              itemsLength={meta?.total || 0}
+            />
+          )}
         </div>
       </Container>
     </div>

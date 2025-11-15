@@ -8,5 +8,12 @@ export function useTeam() {
   return useQuery({
     queryKey: ["team", locale],
     queryFn: () => fetchTeam(locale),
+    // ⭐ Cache forever (best for static Strapi content)
+    staleTime: Infinity,
+    gcTime: Infinity,
+    // 🔒 Do NOT refetch
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    refetchOnWindowFocus: false,
   });
 }

@@ -31,7 +31,7 @@ export class ServiceAdapter extends BaseAdapter<StrapiService, typService> {
             return `<li>${text}</li>`;
           })
           .join("");
-        html += `<ul>${items}</ul>`;
+        html += `<ul class="list-disc">${items}</ul>`;
       }
     }
     return html;
