@@ -1,4 +1,5 @@
-export const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api";
+
+export const STRAPI_URL =  process.env.NEXT_PUBLIC_STRAPI_API_URL || "http://localhost:1337/api";
 
 export async function apiClient<T>(
   endpoint: string,

@@ -6,8 +6,7 @@ import menuReducer from "./menuSlice";
 export const store = configureStore({
   reducer: {
     search: searchReducer,
-        menu: menuReducer,
-
+    menu: menuReducer,
   },
 });
 
