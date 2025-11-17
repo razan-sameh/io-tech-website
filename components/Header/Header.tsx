@@ -33,14 +33,14 @@ export default function Header() {
         <Link href="/" className="hover:text-gray-300 transition">
           {t("home")}
         </Link>
-        <Link href="/about" className="hover:text-gray-300 transition">
+        <Link href="/" className="hover:text-gray-300 transition">
           {t("about")}
         </Link>
         <ServiceDropdownButton />
-        <Link href="/team" className="hover:text-gray-300 transition">
+        <Link href="/" className="hover:text-gray-300 transition">
           {t("team")}
         </Link>
-        <Link href="/contact" className="hover:text-gray-300 transition">
+        <Link href="/" className="hover:text-gray-300 transition">
           {t("contact")}
         </Link>
       </nav>

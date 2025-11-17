@@ -7,11 +7,11 @@ export default function FooterNav() {
   const t = useTranslations("footer");
 
   const links = [
-    { href: '/about', label: t("nav.about") },
-    { href: '/strategy', label: t("nav.strategy") },
-    { href: '/advantages', label: t("nav.advantages") },
-    { href: '/social-responsibility', label: t("nav.socialResponsibility") },
-    { href: '/services', label: t("nav.services") },
+    { href: '/', label: t("nav.about") },
+    { href: '/', label: t("nav.strategy") },
+    { href: '/', label: t("nav.advantages") },
+    { href: '/', label: t("nav.socialResponsibility") },
+    { href: '/', label: t("nav.services") },
   ];
 
   return (
